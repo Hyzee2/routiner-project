@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    안녕하세용?
+    안녕하세용? join 브랜치로 작업함.
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
