@@ -1,9 +1,15 @@
 <template>
+  <!-- nav 없애고 아이디, 비번 텍스트필드 -->
+  <!-- 로그인버튼, 회원가입버튼 -->
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/Login">Login</router-link> |
+    <router-link to="/Join">Join</router-link>
   </nav>
   <router-view/>
+  메인 화면 영역
+  아이디, 비번
+  로그인 버튼, 회원가입 버튼 
 </template>
 
 <style>
