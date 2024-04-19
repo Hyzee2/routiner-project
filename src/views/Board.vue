@@ -13,15 +13,25 @@
     로그인Id랑 작성자 Id가 동일하면
     수정. 삭제 버튼이 true로 보여짐
 
-    수정 버튼 누르면 글편집으로 라우터 넘겨(editBoard.vue)
-
+    수정 버튼 누르면 글편집으로 라우터 넘겨(editBoard.vue)<br><br>
+    <button @click = "btn_ev">글나와라얍</button>
 </template>
   
 <script>
+import axios from 'axios';
   export default {
     name: 'App',
     data() {
       return {
+      }
+    },
+    methods:{
+      btn_ev(){
+        let obj = {};
+            axios.get("http://localhost:3000/query", obj)
+            .then(res =>{
+                console.log(res.data);
+            })
       }
     },
     components: {

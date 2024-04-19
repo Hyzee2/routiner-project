@@ -4,7 +4,8 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/Login">Login</router-link> |
-    <router-link to="/Join">Join</router-link>
+    <router-link to="/Join">Join</router-link> | 
+    <router-link to="/Board">Board</router-link>
   </nav>
   <router-view/>
   메인 화면 영역
