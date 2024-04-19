@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    일단은 컴포넌트 안만들어용~
+
     안녕하세용? join 브랜치로 작업함.
     kim hyun ji 개발작업함. 121212
     woo가 조금 더 작업함.
