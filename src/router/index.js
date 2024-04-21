@@ -3,11 +3,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    name: 'HomePage',
+    name: 'LoginPage',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('@/components/HomePage.vue')
+    component: () => import('@/views/LoginPage.vue')
   },
   {
     path: '/Join',
@@ -24,6 +24,22 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('@/views/Board.vue')
+  },
+  {
+    path: '/UserMain',
+    name: 'UserMain',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('@/views/UserMain.vue')
+  },
+  {
+    path: '/Calendar',
+    name: 'Calendar',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('@/views/Calendar.vue')
   },
 
 ]

@@ -20,6 +20,7 @@ export default ({
 methods: {
   goLogin() {
     alert('일단 알럿창 생성!!');
+    this.$router.push('/UserMain');
   },
   goToJoin() {
     this.$router.push('/Join');
@@ -62,7 +63,7 @@ main {
   margin-top: 50px;
 }
 
-label {
+.login-container>label {
   border-bottom: 1px solid lightblue;
   display: inline-block;
   width: max-content;
