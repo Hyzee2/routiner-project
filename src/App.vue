@@ -1,38 +1,28 @@
 <template>
   <!-- nav 없애고 아이디, 비번 텍스트필드 -->
   <!-- 로그인버튼, 회원가입버튼 -->
+  <div>
+    <img src="@/assets/logo1.png" alt="Logo" class="logo" />
+  </div>
+
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/Join">Join</router-link> | 
     <router-link to="/Board">Board</router-link>
   </nav>
-  <router-view/>
-  <div>
-    <img src="@/assets/logo1.png" alt="Logo" class="logo" />
-  </div>
-  <main>
-    <div class="login-container">
-      <input type="text" placeholder="아이디" /><br>
-      <input type="password" placeholder="비밀번호" /><br>
-      <button @click="goLogin()">LOGIN</button>&nbsp;&nbsp;
-      <button @click="goToJoin()">JOIN</button><br>
-    </div>
-  </main>
+
+  <router-view />
+
 </template>
 
 <script>
+
 export default ({
 methods: {
-  goLogin() {
-    alert('일단 알럿창 생성!!');
-  },
-  goToJoin() {
-    this.$router.push('/Join');
-  }
+  
 },
 })
 </script>
-
 
 <style>
 #app {
@@ -45,6 +35,7 @@ methods: {
 
 nav {
   padding: 30px;
+  padding-top: 15px;
 }
 
 nav a {
@@ -55,4 +46,10 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.logo {
+  width: 300px;
+  margin-top: 25px;
+}
+
 </style>
