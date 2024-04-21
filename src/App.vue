@@ -1,38 +1,27 @@
 <template>
-  <!-- nav 없애고 아이디, 비번 텍스트필드 -->
-  <!-- 로그인버튼, 회원가입버튼 -->
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/Join">Join</router-link> | 
-    <router-link to="/Board">Board</router-link>
-  </nav>
-  <router-view/>
+  
   <div>
     <img src="@/assets/logo1.png" alt="Logo" class="logo" />
   </div>
-  <main>
-    <div class="login-container">
-      <input type="text" placeholder="아이디" /><br>
-      <input type="password" placeholder="비밀번호" /><br>
-      <button @click="goLogin()">LOGIN</button>&nbsp;&nbsp;
-      <button @click="goToJoin()">JOIN</button><br>
-    </div>
-  </main>
+
+  <nav>
+    <router-link to="/">Home</router-link>
+    <!-- 라우터로 Home 메뉴를 누르면 LoginPage가 보이게 만들었으므로 컴포넌트로 import 할 필요가 없다. -->
+  </nav>
+  <!-- 라우터 뷰 위에 부분은 페이지 이동해도 고정적으로 보이는 부분 -->
+  <router-view />
+  <!-- 이 부분은 라우터로 페이지 이동할 때마다 바뀌는 부분 -->
+
 </template>
 
 <script>
+
 export default ({
 methods: {
-  goLogin() {
-    alert('일단 알럿창 생성!!');
-  },
-  goToJoin() {
-    this.$router.push('/Join');
-  }
+  
 },
 })
 </script>
-
 
 <style>
 #app {
@@ -45,6 +34,7 @@ methods: {
 
 nav {
   padding: 30px;
+  padding-top: 15px;
 }
 
 nav a {
@@ -55,4 +45,10 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.logo {
+  width: 300px;
+  margin-top: 25px;
+}
+
 </style>
