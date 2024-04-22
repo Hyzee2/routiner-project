@@ -50,6 +50,7 @@ export default ({
         console.log(res.data);
         if(res.data.state !== "none"){
         alert('로그인 성공!');
+        this.$store.commit('setUser', obj.id);
         this.$router.push('/UserMain');
       }else{
         alert("로그인 실패!");
@@ -75,9 +76,9 @@ export default ({
           console.log("정보갖고오기까진성공함");
           const kakao_account = res.kakao_account;
           const id = kakao_account.email; 
-          const name = kakao_account.profile.nickname;
+         
 
-          let kakao = {id, name};
+          let kakao = {id};
           console.log(kakao);
     
           axios.post('http://localhost:3000/kakao-member', kakao)
@@ -88,7 +89,7 @@ export default ({
           });
           alert("카카오톡으로 로그인되었습니다.");
           console.log("id", kakao.id);
-          console.log("name", kakao.name);
+          
 
 
         },
