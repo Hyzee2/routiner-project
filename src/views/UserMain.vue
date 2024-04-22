@@ -28,7 +28,7 @@
     name: 'App',
     data() {
       return {
-        showModal: true
+        showModal: false
       }
     },
     methods: {
