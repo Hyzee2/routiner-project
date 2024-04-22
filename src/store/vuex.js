@@ -9,14 +9,12 @@ const store = createStore( {
     },
     mutations: {            // Java의 setter 개념 - 데이터 넘겨주기
         setUser(state, userInfo) {  // 파라미터 구조 분해 할당 사용
-            const { id } = userInfo;
+            const id = userInfo;
             console.log(userInfo);
             console.log("ID", id);
             state.user.id = id;
-         
         },
-       
-            },
+    },
     getters: {
         getUserList(state){
             return state.user;
