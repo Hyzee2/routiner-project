@@ -84,7 +84,7 @@ export default ({
           axios.post('http://localhost:3000/kakao-member', kakao)
           .then(res => {
               console.log(res);
-              this.$store.commit('setUser', kakao);
+              this.$store.commit('setUser', kakao.id);
               this.$router.push('/UserMain');  // UserMain.vue 페이지로 네비게이션
           });
           alert("카카오톡으로 로그인되었습니다.");
