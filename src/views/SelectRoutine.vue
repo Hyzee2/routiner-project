@@ -3,6 +3,8 @@
   <nav class="menu">
     <router-link to="/UserMain">메인으로 돌아가기</router-link>
   </nav>
+  <div><h2>나만의 루틴 선택하기!</h2><br>
+    {{ this.nameObj.id }}님께는 {{ this.favorite }} 카테고리의 루틴을 추천드려요!</div>
 
   <div id="app">
     <nav class="navigation">
@@ -97,6 +99,7 @@ import axios from 'axios';
       return {
         nameObj: {},
         selectObj: {},
+        favorite: {},
         menus: ['건강', '셀프케어', '생활', '자기계발'],
         selectedMenu: '건강', // 디폴트로 선택된 메뉴
         okPopupOpen: false,
@@ -138,6 +141,34 @@ import axios from 'axios';
         let userId = this.$store.getters.getUserList.id;
         console.log("userId는?? ", userId);
         this.nameObj.id = userId;
+
+        let obj = {};
+        obj.id = userId;
+
+        // 여기부터
+        axios.get("http://localhost:3000/select_favorite", {
+          params: obj
+        })
+        .then( res => {
+          console.log("이사람의 favorite_id는?", res.data.data);
+          if (res.data.data==1) {
+            this.favorite = '건강';
+          } else if (res.data.data==2) {
+            this.favorite = '셀프케어';
+          } else if (res.data.data==3) {
+            this.favorite = '생활';
+          } else if (res.data.data==4) {
+            this.favorite = '자기계발';
+          } else {
+            this.favorite = '모르겠어요';
+          }
+          this.selectedMenu = this.favorite;
+          
+        })
+        .catch(error => {
+          console.error("에러 발생:", error);
+        });
+
       },
       selectMenu(menu) {
       this.selectedMenu = menu;
