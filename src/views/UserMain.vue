@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div id="routines" v-for="li in routines" :key="li.r_name">
+  <div id="routines" v-for="(li) in routines" :key="li.r_name" @click="checkRoutine(li)" :class="{checked : li.isChecked}">
     {{ li.r_name }}
   </div>
 
@@ -30,7 +30,8 @@
     data() {
       return {
         showModal: false,
-        routines: []
+        routines: [],
+        result: {},
       }
     },
     methods: {
@@ -51,14 +52,58 @@
         .then(res => {
           console.log("이제 아래쪽에 data 나온 것임");
           console.log(res.data);
-          console.log("나는 r_name만 뽑고 싶은데");
+          console.log("이제 밑에 r_id, r_name이 나옴");
           console.log(res.data.data[0]);
 
-          this.routines = res.data.data; // 지금 r_name 목록들을 배열 형태로 담음.
+          const routineWithCheck = res.data.data.map(item => ({ // map()을 이용해서 받아온 데이터에 새로운 속성 추가해서 배열로 넣음
+            ...item,
+            isChecked: false // isChecked 속성을 false로 기본값으로 해서 routines배열에 추가
+          }));
+          this. routines = routineWithCheck;
+          //this.routines = res.data.data; // 지금 r_name 목록들을 배열 형태로 담음.
 
         })
         .catch(error => {
           console.error("루틴정보 없거나 불러오기 실패", error);
+        })
+      },
+      checkRoutine(li){ // 루틴 체크하는 순간 DB로 보내기 
+        li.isChecked = !li.isChecked; // true, false
+
+        let userId = this.$store.getters.getUserList.id;
+        let obj = {};
+        obj.mem_id = userId;
+        obj.r_id = li.r_id;
+        obj.checkYn = li.isChecked;
+        console.log("체크하고 나서 obj 확인", obj);
+       
+       
+        axios.get("http://localhost:3000/check-select", {
+          params: obj
+        })
+        .then(res => {
+          console.log("이건 이미 체크를 했는지 찾아온 결과", res.data);
+          this.result = res.data;
+          console.log("이건 서버로부터 res를 받은 결과물", this.result);
+
+          // 비동기 처리를 방지하기 위한 if 조건문 다음에 위치
+          if(this.result.state === 'ok'){ // 이미 체크여부가 있으므로 update
+            console.log("이건 쿼리가 있는지 없는지 확인", this.result.state);
+            axios.post("http://localhost:3000/check-update", obj)
+            .then(res => {
+              console.log("이건 제대로 반응이 온것");
+              console.log(res);
+            })
+          }else if(this.result.state === 'none'){ // 처음 체크하는 거니깐 insert
+            axios.post("http://localhost:3000/check-insert", obj)
+            .then(res => {
+              console.log("이건 제대로 반응이 온것");
+              console.log(res);
+            })
+          }
+        })
+        .catch(error => {
+          console.log("서버로부터 정보를 가져오는데 실패", error);
         })
       }
     },
@@ -151,16 +196,27 @@
 
   #routines {
     width: 50%;
+    height: 50px;
     font-weight: 500;
-    background-color: white;
     margin: 20px auto;
-    padding: 10px;
     border: 1px solid lightslategray;
-    border-radius: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #routines:hover {
+    cursor: pointer;
   }
 
   @keyframes slideIn {
     from { transform: translateY(-50px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
+  }
+
+  #routines.checked {
+    background-color: #11943c;
+    color: white;
   }
 </style>
