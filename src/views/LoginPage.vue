@@ -50,7 +50,7 @@ export default ({
         console.log(res.data);
         if(res.data.state !== "none"){
         alert('로그인 성공!');
-        this.$store.commit('setUser', obj.id);
+        this.$store.commit('setUser', obj);
         this.$router.push('/UserMain');
       }else{
         alert("로그인 실패!");
