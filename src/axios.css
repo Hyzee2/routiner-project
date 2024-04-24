@@ -1,0 +1,114 @@
+.popup_bl {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.5s;
+  }
+  
+  .popup_wh {
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 300px;
+    max-width: 500px;
+    text-align: center;
+    animation: slideIn 0.5s;
+  }
+  
+  .data-id {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px; /* 하단 내용과의 여백 추가 */
+    border-bottom: 2px solid #4CAF50; /* ID 아래에 선 추가 */
+    padding-bottom: 10px; /* 선과 텍스트 사이의 여백 */
+  }
+  
+  .data-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* 버튼에 그림자 효과 추가 */
+    transition: background-color 0.3s, transform 0.2s; /* 배경색과 크기 변화에 애니메이션 효과 */
+  }
+  
+  button:hover {
+    background-color: #367B3A; /* 호버 시 버튼 색 변경 */
+    transform: scale(1.05); /* 버튼을 약간 크게 만듦 */
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  
+  .brd_table {
+    width: 80%; /* 테이블의 폭 설정 */
+    margin: 20px auto; /* 상하 20px, 좌우 자동으로 테이블을 중앙 정렬 */
+    border-collapse: collapse; /* 테이블 셀 사이의 간격 없애기 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 테이블에 그림자 효과 추가 */
+  }
+  
+  th, td {
+    padding: 12px 15px; /* 셀 내부의 여백 */
+    border-bottom: 1px solid #ddd; /* 셀 하단에 선 추가 */
+    text-align: center; /* 텍스트를 중앙 정렬 */
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5; /* 행에 마우스를 올리면 배경색 변경 */
+  }
+  
+  th {
+    background-color: #4CAF50; /* 헤더의 배경색 */
+    color: white; /* 헤더의 텍스트 색상 */
+  }
+
+  .modal-background {
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
+    display: flex; /* flexbox로 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 10%;
+    border-radius: 10px;
+    width: 80%;
+  }
