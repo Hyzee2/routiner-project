@@ -1,28 +1,35 @@
 <template>
 
-  <nav class="menu">
-    <router-link to="/UserMain">메인으로 돌아가기</router-link>
-  </nav>
-  <div><h2>나만의 루틴 선택하기!</h2><br>
-    {{ this.nameObj.id }}님께는 {{ this.favorite }} 카테고리의 루틴을 추천드려요!</div>
-
+  <div><h class="btn-custom-font" style="font-size: 18pt; color: #2F2E2E;">
+    <v-icon>mdi-account-circle</v-icon>{{ this.nameObj.id }}님께는 "{{ this.favorite }}" 카테고리의 루틴을 추천드려요!
+  </h>
+  </div>
+   
   <div id="app">
     <nav class="navigation">
-      <button
+      <!-- <button class="btn-custom-font"
         v-for="(menu, index) in menus"
         :key="index"
         :class="{ 'selected': selectedMenu === menu }"
         @click="selectMenu(menu)"
       >
         {{ menu }}
-      </button>
+      </button> -->
+      <v-btn class="ma-2 btn-custom-font" height="50px" :ripple="false" rounded="xl"
+      v-for="(menu, index) in menus"
+        :key="index"
+        :class="{ 'selected': selectedMenu === menu }"
+        @click="selectMenu(menu)"
+      >
+      {{ menu }}
+      </v-btn>
     </nav>
 
     <div class="content">
 
       <div v-if="selectedMenu === '건강'">
         <div class="button-list">
-          <button
+          <button class="btn-custom-font"
             v-for="(item, index) in menu1Items"
             :key="index"
             :class="{ 'selected': item.selected }"
@@ -30,13 +37,16 @@
           >
             {{ item.name }}
           </button><br>
-          <button style="background-color: darkslateblue; color:antiquewhite;" @click="insertRoutine">내 루틴으로 추가하기</button>
+          <v-btn class="ma-2 btn-custom-font" color="darkslateblue" height="50px" @click="insertRoutine" rounded="xl">
+           내 루틴으로 추가하기
+          </v-btn>
+          <!-- <button style="background-color: darkslateblue; color:antiquewhite;" @click="insertRoutine">내 루틴으로 추가하기</button> -->
         </div>
       </div>
 
       <div v-else-if="selectedMenu === '셀프케어'">
         <div class="button-list">
-          <button
+          <button class="btn-custom-font"
             v-for="(item, index) in menu2Items"
             :key="index"
             :class="{ 'selected': item.selected }"
@@ -44,13 +54,16 @@
           >
             {{ item.name }}
           </button><br>
-          <button style="background-color: darkslateblue; color:antiquewhite;" @click="insertRoutine">내 루틴으로 추가하기</button>
+          <v-btn class="ma-2 btn-custom-font" color="darkslateblue" height="50px" @click="insertRoutine" rounded="xl">
+           내 루틴으로 추가하기
+          </v-btn>
+          <!-- <button style="background-color: darkslateblue; color:antiquewhite;" @click="insertRoutine">내 루틴으로 추가하기</button> -->
         </div>
       </div>
 
       <div v-else-if="selectedMenu === '생활'">
         <div class="button-list">
-          <button
+          <button class="btn-custom-font"
             v-for="(item, index) in menu3Items"
             :key="index"
             :class="{ 'selected': item.selected }"
@@ -58,13 +71,16 @@
           >
             {{ item.name }}
           </button><br>
-          <button style="background-color: darkslateblue; color:antiquewhite;" @click="insertRoutine">내 루틴으로 추가하기</button>
+          <v-btn class="ma-2 btn-custom-font" color="darkslateblue" height="50px" @click="insertRoutine" rounded="xl">
+           내 루틴으로 추가하기
+          </v-btn>
+          <!-- <button style="background-color: darkslateblue; color:antiquewhite;" @click="insertRoutine">내 루틴으로 추가하기</button> -->
         </div>
       </div>
 
       <div v-else-if="selectedMenu === '자기계발'">
         <div class="button-list">
-          <button
+          <button class="btn-custom-font"
             v-for="(item, index) in menu4Items"
             :key="index"
             :class="{ 'selected': item.selected }"
@@ -72,7 +88,10 @@
           >
             {{ item.name }}
           </button><br>
-          <button style="background-color: darkslateblue; color:antiquewhite;" @click="insertRoutine">내 루틴으로 추가하기</button>
+          <v-btn class="ma-2 btn-custom-font" color="darkslateblue" height="50px" @click="insertRoutine" rounded="xl">
+           내 루틴으로 추가하기
+          </v-btn>
+          <!-- <button style="background-color: darkslateblue; color:antiquewhite;" @click="insertRoutine">내 루틴으로 추가하기</button> -->
         </div>
       </div>
 
@@ -230,7 +249,7 @@ import axios from 'axios';
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    margin-top: 5px;
   }
 
   .navigation {
@@ -329,4 +348,14 @@ import axios from 'axios';
     transform: scale(1.05); /* 버튼을 약간 크게 만듦 */
     color: white;
   }
+
+  @font-face {
+  font-family: 'GODOM';
+  src: url('/vuetify-project/public/fonts/GODOM.TTF') format('truetype');
+}
+
+.btn-custom-font {
+  font-family: 'GODOM';
+  font-size: 16pt;
+}
 </style>
