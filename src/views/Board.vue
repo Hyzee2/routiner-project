@@ -31,9 +31,9 @@
   </table>
   <!-- 글 contents 보여주기 영역 -->
   <div v-if="modalOpen" class="modal-content">
-    <p>Title: {{ selectedPost[0].title }}</p>
-    <p>Contents: {{ selectedPost[0].contents }}</p>
-    <p>Date: {{ selectedPost[0].w_date }}</p>
+    <p>Title: {{ selectedPost.title }}</p>
+    <p>Contents: {{ selectedPost.contents }}</p>
+    <p>Date: {{ selectedPost.w_date }}</p>
     <button @click="modalOpen = false">Close</button><br>
   </div><br><br>
   <!-- 글쓰기 영역 -->
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       boards: [],
-      selectedPost: null,
+      selectedPost: {},
       filteredBoards: [],
       selectedCategory: 1,
       categories: [
@@ -105,10 +105,7 @@ export default {
       this.modalOpen = true;
       axios.get(`http://localhost:3000/boards/num/${board_num}`)
         .then(response => {
-          this.selectedPost = response.data.data;  // 데이터 배열에서 게시글 정보 추출
-          console.log('server에서 가져온 contents내용',response.data.data);
-          // this.title = this.selectedPost.title;
-          console.log(this.selectedPost[0] );
+          this.selectedPost = response.data.data[0];  // 데이터 배열에서 게시글 정보 추출
         })
         .catch(error => {
           console.error('게시글 상세 정보 가져오기 오류:', error);
