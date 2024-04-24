@@ -1,10 +1,49 @@
 <template>
 
-  <nav class="menu">
-    <router-link to="/UserMain">오늘</router-link>
-    <router-link to="/Calendar">월별</router-link>
-    <router-link to="/Board">게시판</router-link>
-  </nav>
+  <v-layout class="overflow-visible" style="height: 56px;">
+    <v-app-bar-title
+      v-model="value"
+      color="teal"
+      grow
+      class="mt-5"
+    >
+      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/UserMain">
+        <v-icon>mdi-checkbox-marked-circle-outline</v-icon>&nbsp;
+
+        Main
+      </v-btn>
+
+      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/Calendar">
+        <v-icon>mdi-calendar-check</v-icon>&nbsp;
+
+        Monthly
+      </v-btn>
+
+      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/Board">
+        <v-icon>mdi-bulletin-board</v-icon>&nbsp;
+
+        Board
+      </v-btn>
+      
+    </v-app-bar-title>
+  </v-layout>
+
+  <h1 class="welcome">{{ id }}님 루티너와 함께 오늘의 루틴을 실천해봐요!</h1>
+
+  <v-card
+    class="mx-auto mt-8"
+    color="surface-variant"
+    variant="text"
+    >
+    <v-img
+      class="align-end text-white"
+      height="400"
+      :src="require('@/assets/teamwork.jpg')"
+      cover
+      >
+      <div class="overlay"></div>
+    </v-img>
+  </v-card>
 
   <div class="popup_place" v-if="!routines || routines.length === 0">
     <div class="popup_wh">
@@ -16,28 +55,32 @@
     </div>
   </div>
 
-  <div class="list" v-if="isChecked === false">
-    <div class="unchecked-list">
+  <div class="total-list">
+    <v-row justify="center">
+      <div class="list" v-if="isChecked === false">
+        <div class="unchecked-list">
 
-      <div v-for="li in routines" :key="li.r_name"  @click="checkRoutine(li)">
-        <v-col cols="12" md="4" sm="6">
-          <v-btn :class="{'checked' : li.checkYn}" rounded="lg" size="x-large" block>{{ li.r_name }}</v-btn>
-        </v-col>
+          <div v-for="li in routines" :key="li.r_name"  @click="checkRoutine(li)">
+            <v-col cols="12" md="12" sm="12">
+              <v-btn :class="{'checked' : li.checkYn}" rounded="lg" size="x-large" block>{{ li.r_name }}</v-btn>
+            </v-col>
+          </div>
+
+        </div>
       </div>
 
-    </div>
-  </div>
+      <div class="list" v-if="isChecked === true">
+        <div class="checked-list">
+          
+          <div v-for="li in routines" :key="li.r_name"  @click="checkRoutine(li)">
+            <v-col cols="12" md="12" sm="12">
+              <v-btn :class="{'checked' : li.checkYn}" rounded="lg" size="x-large" block>{{ li.r_name }}</v-btn>
+            </v-col>
+          </div>
 
-  <div class="list" v-if="isChecked === true">
-    <div class="checked-list">
-      
-      <div v-for="li in routines" :key="li.r_name"  @click="checkRoutine(li)">
-        <v-col cols="12" md="4" sm="6">
-          <v-btn :class="{'checked' : li.checkYn}" rounded="lg" size="x-large" block>{{ li.r_name }}</v-btn>
-        </v-col>
+        </div>
       </div>
-
-    </div>
+    </v-row>
   </div>
 
 </template>
@@ -53,6 +96,8 @@
         routines: [],
         result: {},
         isChecked: false,
+        value: 1,
+        id: '',
       }
     },
     methods: {
@@ -62,6 +107,7 @@
 
       loadRoutine(){ // 로그인한 id와 매칭하여 등록된 루틴 (join문) 배열로 가져오기 
         let userId = this.$store.getters.getUserList.id;
+        this.id = this.$store.getters.getUserList.id;
         console.log(userId + "이건 usermain 화면에서 나온거"); // 로그인한 id 가지고 옴
 
         let obj = {}; // obj에 userId 담아서 DB에서 검색할 조건 값으로 보내기
@@ -141,102 +187,11 @@
 </script>
   
 <style>
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
+  @import '@/views/main.css';
 
-  .menu {
-    width: 100%;
-    height: 40px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  menu>a {
-    display: inline-block;
-    width: 100px;
-  }
-
-  a {
-    border-bottom: 1px solid lightblue;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  a:hover {
-  transform: scale(1.2, 1.2);
-  cursor: pointer;
-  }
-
-  .popup_wh {
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    animation: slideIn 0.5s;
-  }
-
-.popup_place {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0,0,0,0.5);
-  }
-
-  #makeRoutine { /*루틴만들기 버튼 스타일*/ 
-    margin-top: 10px;
-    background-color: rgb(218, 218, 218);
-    padding: 5px 15px;
-    border-radius: 5px;
-    font-weight: 600;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* 버튼에 그림자 효과 추가 */
-    transition: background-color 0.3s, transform 0.2s; /* 배경색과 크기 변화에 애니메이션 효과 */
-  }
-
-  #makeRoutine:hover {
-    background-color: #11943c; /* 호버 시 버튼 색 변경 */
-    transform: scale(1.05); /* 버튼을 약간 크게 만듦 */
-    color: white;
-  }
-
-  @keyframes slideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-
-  .checked {
-    background-color: #11943c;
-    color: white;
-  }
-
-  .list {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .unchecked-list, .checked-list {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+.welcome {
+  margin-top: 40px;
+  margin-bottom: -20px;
+}
 
 </style>

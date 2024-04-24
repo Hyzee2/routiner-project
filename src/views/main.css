@@ -1,0 +1,77 @@
+
+/* 돌아가기 > back > mdi-arrow-left */
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    transform: scale(1.2, 1.2);
+    cursor: pointer;
+}
+
+.popup_wh {
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: slideIn 0.5s;
+}
+
+.popup_place {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+#makeRoutine { /*루틴만들기 버튼 스타일*/ 
+    margin-top: 10px;
+    background-color: rgb(218, 218, 218);
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* 버튼에 그림자 효과 추가 */
+    transition: background-color 0.3s, transform 0.2s; /* 배경색과 크기 변화에 애니메이션 효과 */
+}
+
+#makeRoutine:hover {
+    background-color: #11943c; /* 호버 시 버튼 색 변경 */
+    transform: scale(1.05); /* 버튼을 약간 크게 만듦 */
+    color: white;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.checked {
+    background-color: #11943c;
+    color: white;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+  
+.position-absolute {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
