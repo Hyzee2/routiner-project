@@ -1,8 +1,8 @@
 <template>
   
-  <div>
-    <img src="@/assets/logo1.png" alt="Logo" class="logo" />
-  </div>
+  <router-link to="/">
+      <img src="@/assets/logo1.png" alt="Logo" class="logo" />
+  </router-link>
 
   <router-view />
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="menu">
+  <!-- <div class="menu">
     <label @click="goMain">
       <h4>오늘</h4>
     </label>
@@ -9,7 +9,36 @@
     <label @click="goBoard">
       <h4>게시판</h4>
     </label>
-  </div>
+  </div> -->
+
+  <v-layout class="overflow-visible" style="height: 56px;">
+    <v-app-bar-title
+      v-model="value"
+      color="teal"
+      grow
+      class="mt-5"
+    >
+      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/UserMain">
+        <v-icon>mdi-checkbox-marked-circle-outline</v-icon>&nbsp;
+
+        Main
+      </v-btn>
+
+      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/Calendar">
+        <v-icon>mdi-calendar-check</v-icon>&nbsp;
+
+        Monthly
+      </v-btn>
+
+      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/Board">
+        <v-icon>mdi-bulletin-board</v-icon>&nbsp;
+
+        Board
+      </v-btn>
+      
+    </v-app-bar-title>
+  </v-layout>
+
   <div class="calendar-container">
     <br/>
     <table class="scriptCalendar">
