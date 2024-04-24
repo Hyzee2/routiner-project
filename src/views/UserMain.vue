@@ -1,5 +1,5 @@
 <template>
-  
+
   <nav class="menu">
     <router-link to="/UserMain">오늘</router-link>
     <router-link to="/Calendar">월별</router-link>
@@ -16,8 +16,28 @@
     </div>
   </div>
 
-  <div id="routines" v-for="(li) in routines" :key="li.r_name" @click="checkRoutine(li)" :class="{checked : li.isChecked}">
-    {{ li.r_name }}
+  <div class="list" v-if="isChecked === false">
+    <div class="unchecked-list">
+
+      <div v-for="li in routines" :key="li.r_name"  @click="checkRoutine(li)">
+        <v-col cols="12" md="4" sm="6">
+          <v-btn :class="{'checked' : li.checkYn}" rounded="lg" size="x-large" block>{{ li.r_name }}</v-btn>
+        </v-col>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="list" v-if="isChecked === true">
+    <div class="checked-list">
+      
+      <div v-for="li in routines" :key="li.r_name"  @click="checkRoutine(li)">
+        <v-col cols="12" md="4" sm="6">
+          <v-btn :class="{'checked' : li.checkYn}" rounded="lg" size="x-large" block>{{ li.r_name }}</v-btn>
+        </v-col>
+      </div>
+
+    </div>
   </div>
 
 </template>
@@ -32,6 +52,7 @@
         showModal: false,
         routines: [],
         result: {},
+        isChecked: false,
       }
     },
     methods: {
@@ -54,29 +75,31 @@
           console.log(res.data);
           console.log("이제 밑에 r_id, r_name이 나옴");
           console.log(res.data.data[0]);
-
-          const routineWithCheck = res.data.data.map(item => ({ // map()을 이용해서 받아온 데이터에 새로운 속성 추가해서 배열로 넣음
-            ...item,
-            isChecked: false // isChecked 속성을 false로 기본값으로 해서 routines배열에 추가
-          }));
-          this. routines = routineWithCheck;
-          //this.routines = res.data.data; // 지금 r_name 목록들을 배열 형태로 담음.
-
+          
+          this.routines = res.data.data; 
+          for(let i=0; i<this.routines.length; i++){
+            if(this.routines[i].checkYn !== 1){
+              this.isChecked=false;
+            }else{
+              this.isChecked=true;
+            }
+          }
         })
         .catch(error => {
           console.error("루틴정보 없거나 불러오기 실패", error);
         })
       },
       checkRoutine(li){ // 루틴 체크하는 순간 DB로 보내기 
-        li.isChecked = !li.isChecked; // true, false
+        li.checkYn = !li.checkYn; // true, false
+        this.isChecked = li.checkYn; // 지금 이부분 추가했는데 db 괜찮은지 확인하기!!!!!!!!!
 
         let userId = this.$store.getters.getUserList.id;
+
         let obj = {};
         obj.mem_id = userId;
         obj.r_id = li.r_id;
-        obj.checkYn = li.isChecked;
+        obj.checkYn = li.checkYn;
         console.log("체크하고 나서 obj 확인", obj);
-       
        
         axios.get("http://localhost:3000/check-select", {
           params: obj
@@ -150,7 +173,7 @@
   a:hover {
   transform: scale(1.2, 1.2);
   cursor: pointer;
-}
+  }
 
   .popup_wh {
     padding: 20px;
@@ -164,7 +187,7 @@
     align-items: center;
     flex-direction: column;
     animation: slideIn 0.5s;
-}
+  }
 
 .popup_place {
   display: flex;
@@ -176,9 +199,9 @@
   top: 0;
   left: 0;
   background: rgba(0,0,0,0.5);
-}
+  }
 
-  #makeRoutine {
+  #makeRoutine { /*루틴만들기 버튼 스타일*/ 
     margin-top: 10px;
     background-color: rgb(218, 218, 218);
     padding: 5px 15px;
@@ -194,29 +217,26 @@
     color: white;
   }
 
-  #routines {
-    width: 50%;
-    height: 50px;
-    font-weight: 500;
-    margin: 20px auto;
-    border: 1px solid lightslategray;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #routines:hover {
-    cursor: pointer;
-  }
-
   @keyframes slideIn {
     from { transform: translateY(-50px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
   }
 
-  #routines.checked {
+  .checked {
     background-color: #11943c;
     color: white;
   }
+
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .unchecked-list, .checked-list {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 </style>
