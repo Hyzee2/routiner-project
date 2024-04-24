@@ -2,24 +2,23 @@
 
   <v-layout class="overflow-visible" style="height: 56px;">
     <v-app-bar-title
-      v-model="value"
-      color="teal"
+      v-model="value" 
       grow
       class="mt-5"
     >
-      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/UserMain">
+      <v-btn size="large" variant="tonal" color="teal" class="mr-7 ml-7" to="/UserMain">
         <v-icon>mdi-checkbox-marked-circle-outline</v-icon>&nbsp;
 
         Main
       </v-btn>
 
-      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/Calendar">
+      <v-btn size="large" variant="tonal" color="teal" class="mr-7 ml-7" to="/Calendar">
         <v-icon>mdi-calendar-check</v-icon>&nbsp;
 
         Monthly
       </v-btn>
 
-      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/Board">
+      <v-btn size="large" variant="tonal" color="teal" class="mr-7 ml-7" to="/Board">
         <v-icon>mdi-bulletin-board</v-icon>&nbsp;
 
         Board
@@ -28,7 +27,7 @@
     </v-app-bar-title>
   </v-layout>
 
-  <h1 class="welcome">{{ id }}님 루티너와 함께 오늘의 루틴을 실천해봐요!</h1>
+  <h1 class="welcome btn-custom-title">{{ id }}님 루티너와 함께 오늘의 루틴을 실천해봐요!</h1>
 
   <v-card
     class="mx-auto mt-8"
@@ -36,8 +35,8 @@
     variant="text"
     >
     <v-img
-      class="align-end text-white"
-      height="400"
+      class="align-end text-white mb-5"
+      height="500"
       :src="require('@/assets/teamwork.jpg')"
       cover
       >
@@ -47,15 +46,15 @@
 
   <div class="popup_place" v-if="!routines || routines.length === 0">
     <div class="popup_wh">
-      <h4>
+      <h4 class="btn-custom-font">
         앗! 루틴이 없어요!<br> 
         루티너와 같이 새로운 루틴 만들러가요
       </h4>
-      <button id="makeRoutine" @click="goRoutine">루틴만들기</button>
+      <button class="btn-custom-small" id="makeRoutine" @click="goRoutine">루틴만들기</button>
     </div>
   </div>
 
-  <div class="total-list">
+  <div class="total-list btn-custom-font">
     <v-row justify="center">
       <div class="list" v-if="isChecked === false">
         <div class="unchecked-list">
@@ -194,4 +193,23 @@
   margin-bottom: -20px;
 }
 
+@font-face {
+    font-family: 'GODOM';
+    src: url('/vuetify-project/public/fonts/GODOM.TTF') format('truetype');
+  }
+  
+  .btn-custom-font {
+    font-family: 'GODOM';
+    font-size: 18pt;
+  }
+
+  .btn-custom-title {
+    font-family: 'GODOM';
+    font-size: 25pt;
+  }
+
+  .btn-custom-small {
+    font-family: 'GODOM';
+    font-size: 14pt;
+  }
 </style>

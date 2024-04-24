@@ -1,5 +1,94 @@
 <template>
-  <div class="table-container">
+  <v-sheet class="bg-deep-purple pa-12" rounded>
+    <v-card class="mx-auto px-6 py-8" max-width="344">
+      <v-form
+        v-model="form"
+        @submit="checkId()"
+       
+      >
+        <v-text-field
+          v-model="inputId"
+          :readonly="loading"
+          :rules="[required]"
+          class="mb-2"
+          label="ID"
+          clearable
+        ></v-text-field>
+
+        <v-text-field
+          v-model="inputPw1"
+          :readonly="loading"
+          :rules="[required]"
+          label="Password"
+          placeholder="비밀번호를 입력하세요"
+          clearable
+        ></v-text-field>
+
+        <v-text-field
+          v-model="inputPw2"
+          :readonly="loading"
+          :rules="[required]"
+          label="Password check"
+          placeholder="비밀번호를 다시 한 번 입력하세요"
+          clearable
+        ></v-text-field>
+
+        <v-text-field
+          v-model="inputName"
+          :readonly="loading"
+          :rules="[required]"
+          label="Name"
+          clearable
+        ></v-text-field>
+
+        <v-text-field
+          v-model="inputBirth"
+          :readonly="loading"
+          :rules="[required]"
+          label="Birth"
+          placeholder="YYYYMMDD 형식으로 입력해주세요"
+          clearable
+        ></v-text-field>
+
+        <p>관심분야를 선택해주세요</p><br>
+
+        <v-radio-group v-model="favorite_id">
+          <v-radio label="건강" value="1"></v-radio>
+          <v-radio label="셀프케어" value="2"></v-radio>
+          <v-radio label="생활" value="3"></v-radio>
+          <v-radio label="자기계발" value="4"></v-radio>
+        </v-radio-group>
+
+        <br>
+
+        <v-btn
+          :disabled="!form"
+          :loading="loading"
+          color="success"
+          size="large"
+          type="submit"
+          variant="elevated"
+          block
+        >
+          Sign In
+        </v-btn>
+
+        <v-btn
+          
+          :loading="loading"
+          color=#FCE4EC
+          size="large"
+          type="reset"
+          variant="elevated"
+          block
+        >
+          Reset
+        </v-btn>
+      </v-form>
+    </v-card>
+  </v-sheet>
+
+  <!-- <div class="table-container">
     <form name="joinform">
         <table :style="table">
 
@@ -42,7 +131,7 @@
     </div>
         <br>
             <input type="button" value="join" @click="checkId()">&nbsp;&nbsp;
-            <input type="reset" value="reset" @click="resetForm()">
+            <input type="reset" value="reset" @click="resetForm()"> -->
           
 </template>
   
@@ -121,6 +210,7 @@ import axios from 'axios';
             console.log(obj);
             alert("회원가입이 완료되었습니다.");
             this.$router.push({ path: '/' });
+            return;
             })
             // .catch(error => {
             //   console.error("회원가입 도중 오류가 발생했습니다:", error);
@@ -148,28 +238,5 @@ import axios from 'axios';
 </script>
   
 <style>
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-
-  .table-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; /* 원하는 간격으로 조절 */
-  }
-
-  .table {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .td {
-    text-align: center; 
-    vertical-align: middle;
-  }
+@import '@/views/main.css';
 </style>

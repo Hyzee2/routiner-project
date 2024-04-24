@@ -101,10 +101,10 @@
 
   <div class="popup_place" v-if="okPopupOpen">
     <div class="popup_wh">
-      <h4>
+      <h4 class="btn-custom-font">
         루틴이 저장되었어요!
       </h4>
-      <button id="makeRoutine" @click="gomain">루틴 시작하기</button>
+      <button class="btn-custom-small" id="makeRoutine" @click="gomain">루틴 시작하기</button>
     </div>
   </div>
     
@@ -358,4 +358,14 @@ import axios from 'axios';
   font-family: 'GODOM';
   font-size: 16pt;
 }
+
+  .btn-custom-title {
+    font-family: 'GODOM';
+    font-size: 25pt;
+  }
+
+  .btn-custom-small {
+    font-family: 'GODOM';
+    font-size: 14pt;
+  }
 </style>

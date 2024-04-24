@@ -1,24 +1,60 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link>
-    <!-- 라우터로 Home 메뉴를 누르면 LoginPage가 보이게 만들었으므로 컴포넌트로 import 할 필요가 없다. -->
-  </nav>
   
   <main>
     <div class="login-container">
-      <label id="userId">아이디&nbsp;
-        <input type="text" placeholder="아이디를 입력하세요" v-model="inputId">
-      </label><br>
-      <label id="password">비밀번호&nbsp;
-        <input type="password" placeholder="비밀번호를 입력하세요" v-model="inputPw" />
-      </label><br>
-      <button @click="goLogin()">LOGIN</button>&nbsp;&nbsp;
-      <button @click="goToJoin()">JOIN</button><br><br>
-      <a id ="kakao-login-btn" @click = "kakaoLogin()">
+      <v-form class="mt-16">
+        <v-container fluid>
+          <v-row justify="center">
+            <v-col
+              cols="12"
+              lg="3"
+              sm="4"
+              >
+              <v-text-field
+                v-model="inputId"
+                hide-details="auto"
+                label="ID"
+                placeholder="아이디를 입력하세요"
+                type="ID"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+      <v-form>
+        <v-container fluid>
+          <v-row justify="center">
+            <v-col
+              cols="12"
+              lg="3"
+              sm="4"
+              >
+              <v-text-field
+                v-model="inputPw"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                label="PW"
+                placeholder="비밀번호를 입력하세요"
+                :type="show1 ? 'text' : 'password'"
+                name="input-10-1"
+                counter
+                @click:append="show1 = !show1"
+              >
+              </v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+    
+      <div class="login-btn">
+        <v-btn variant="elevated" class="btn text-h6" color="teal-lighten-4" @click="goLogin()">LOGIN</v-btn>
+        <v-btn variant="elevated" class="btn text-h6" color="teal-lighten-4" @click="goToJoin()">JOIN</v-btn>
+      </div>
+
+      <a class="autho" id ="kakao-login-btn" @click = "kakaoLogin()">
         <img src = @/assets/kakaoLogin.png width="222" />
       </a><br>
 
-      <a id ="google-login-btn" @click = "googleLogin()">
+      <a class="autho" id ="google-login-btn" @click = "googleLogin()">
         <img src = @/assets/googleLogin.png width="222" />
       </a>
       
@@ -34,7 +70,8 @@ export default ({
   data(){
     return {
       inputId: '',
-      inputPw: ''
+      inputPw: '',
+      show1: false,
     };
   },
   methods: {
@@ -120,50 +157,30 @@ export default ({
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+@import '@/views/main.css';
 
-nav {
-  padding: 30px;
-  padding-top: 15px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-.logo {
-  width: 300px;
-  margin-top: 25px;
-}
-
-main {
-  width: 50%;
-  margin: auto;
-  margin-top: 50px;
-}
-
-.login-container>label {
-  border-bottom: 1px solid lightblue;
-  display: inline-block;
-  width: max-content;
-  margin: 10px;
-  margin-left: auto;
-  margin-right: auto;
+/* main {
+  width: 30%;
+  margin: 50px auto;
   
+} */
+
+
+.btn {
+  width: 110px;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
-button {
-  margin-top: 25px;
+.autho:hover {
+  cursor: pointer;
 }
+
+.login-btn {
+  display: block;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
 </style>
