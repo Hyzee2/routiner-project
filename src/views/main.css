@@ -37,8 +37,9 @@ a:hover {
 }
 
 #makeRoutine { /*루틴만들기 버튼 스타일*/ 
-    margin-top: 10px;
+    margin-top: 30px;
     background-color: rgb(218, 218, 218);
+    color: #2c3e50;
     padding: 5px 15px;
     border-radius: 5px;
     font-weight: 500;
@@ -47,7 +48,7 @@ a:hover {
 }
 
 #makeRoutine:hover {
-    background-color: #11943c; /* 호버 시 버튼 색 변경 */
+    background-color: #009688; /* 호버 시 버튼 색 변경 */
     transform: scale(1.05); /* 버튼을 약간 크게 만듦 */
     color: white;
 }
@@ -58,8 +59,14 @@ a:hover {
 }
 
 .checked {
-    background-color: #11943c;
+    background-color: #009688;
     color: white;
+}
+
+.unchecked:hover {
+    background-color: #009688;
+    color: white;
+    transform: scale(1.05);
 }
 
 .overlay {
@@ -90,3 +97,4 @@ a:hover {
     font-family: 'GODOM';
     font-size: 16pt;
   }
+

@@ -52,13 +52,19 @@
 
         <p>관심분야를 선택해주세요</p><br>
 
-        <v-radio-group v-model="favorite_id">
+        <!-- <v-radio-group v-model="favorite_id">
           <v-radio label="건강" value="1"></v-radio>
           <v-radio label="셀프케어" value="2"></v-radio>
           <v-radio label="생활" value="3"></v-radio>
           <v-radio label="자기계발" value="4"></v-radio>
-        </v-radio-group>
-
+        </v-radio-group> -->
+        
+        <div style="display: block">
+          <input type="radio" style="display: inline-block" name="favorite_id" v-model="favorite_id" value="1">건강
+          <input type="radio" style="display: inline-block" name="favorite_id" v-model="favorite_id" value="2">셀프케어
+          <input type="radio" style="display: inline-block" name="favorite_id" v-model="favorite_id" value="3">생활
+          <input type="radio" style="display: inline-block" name="favorite_id" v-model="favorite_id" value="4">자기계발
+        </div>
         <br>
 
         <v-btn

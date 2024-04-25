@@ -51,11 +51,11 @@
       </div>
 
       <a class="autho" id ="kakao-login-btn" @click = "kakaoLogin()">
-        <img src = @/assets/kakaoLogin.png width="222" />
+        <img class="autho-img kakao-img" src = @/assets/kakaoLogin.png width="222" />
       </a><br>
 
       <a class="autho" id ="google-login-btn" @click = "googleLogin()">
-        <img src = @/assets/googleLogin.png width="222" />
+        <img class="autho-img google-img" src = @/assets/googleLogin.png width="222" />
       </a>
       
     </div>
@@ -171,6 +171,20 @@ export default ({
   margin-left: 10px;
   margin-right: 10px;
   cursor: pointer;
+}
+
+.autho-img {
+  width: 250px;
+  
+}
+
+.kakao-img {
+  height: 60px;
+  border-radius: 50px;
+}
+
+.google-img {
+  height: 60px;
 }
 
 .autho:hover {
