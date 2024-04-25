@@ -6,19 +6,19 @@
       grow
       class="mt-5"
     >
-      <v-btn size="large" variant="tonal" color="grey-darken-1" class="mr-7 ml-7" to="/UserMain">
+      <v-btn size="large" variant="text"  class="mr-7 ml-7" to="/UserMain">
         <v-icon>mdi-checkbox-marked-circle-outline</v-icon>&nbsp;
 
         Main
       </v-btn>
 
-      <v-btn size="large" variant="tonal" color="grey-darken-1" class="mr-7 ml-7" to="/Calendar">
+      <v-btn size="large" variant="text"  class="mr-7 ml-7" to="/Calendar">
         <v-icon>mdi-calendar-check</v-icon>&nbsp;
 
         Monthly
       </v-btn>
 
-      <v-btn size="large" variant="tonal" color="grey-darken-1" class="mr-7 ml-7" to="/Board">
+      <v-btn size="large" variant="text"  class="mr-7 ml-7" to="/Board">
         <v-icon>mdi-bulletin-board</v-icon>&nbsp;
 
         Board

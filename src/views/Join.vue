@@ -1,46 +1,48 @@
 <template>
-  <v-sheet class="bg-deep-purple pa-12" rounded>
-    <v-card class="mx-auto px-6 py-8" max-width="344">
-      <v-form
-        v-model="form"
-        @submit="checkId()"
-       
+  <v-sheet class="bg-grey-lighten-5 pa-12" rounded>
+    <v-card class="mx-auto px-6 py-8" max-width="500">
+      <v-form class="join-form"
       >
+        <p class="join-form-text">아이디</p>
         <v-text-field
           v-model="inputId"
           :readonly="loading"
           :rules="[required]"
           class="mb-2"
           label="ID"
+          placeholder="ID를 입력해주세요"
           clearable
         ></v-text-field>
-
+        <p class="join-form-text">비밀번호</p>
         <v-text-field
           v-model="inputPw1"
           :readonly="loading"
           :rules="[required]"
           label="Password"
+          type="password"
           placeholder="비밀번호를 입력하세요"
           clearable
         ></v-text-field>
-
+        <p class="join-form-text">비밀번호 확인</p>
         <v-text-field
           v-model="inputPw2"
           :readonly="loading"
           :rules="[required]"
           label="Password check"
+          type="password"
           placeholder="비밀번호를 다시 한 번 입력하세요"
           clearable
         ></v-text-field>
-
+        <p class="join-form-text">이름</p>
         <v-text-field
           v-model="inputName"
           :readonly="loading"
           :rules="[required]"
           label="Name"
+          placeholder="이름을 입력해주세요"
           clearable
         ></v-text-field>
-
+        <p class="join-form-text">생년월일</p>
         <v-text-field
           v-model="inputBirth"
           :readonly="loading"
@@ -50,45 +52,36 @@
           clearable
         ></v-text-field>
 
-        <p>관심분야를 선택해주세요</p><br>
+        <p class="btn-custom-font">- 관심분야를 선택해주세요 -</p><br>
 
-        <!-- <v-radio-group v-model="favorite_id">
-          <v-radio label="건강" value="1"></v-radio>
-          <v-radio label="셀프케어" value="2"></v-radio>
-          <v-radio label="생활" value="3"></v-radio>
-          <v-radio label="자기계발" value="4"></v-radio>
-        </v-radio-group> -->
+        <v-radio-group v-model="favorite_id">
+          <v-radio class="btn-custom-font" label="건강" value="1"></v-radio>
+          <v-radio class="btn-custom-font" label="셀프케어" value="2"></v-radio>
+          <v-radio class="btn-custom-font" label="생활" value="3"></v-radio>
+          <v-radio class="btn-custom-font" label="자기계발" value="4"></v-radio>
+        </v-radio-group>
         
-        <div style="display: block">
-          <input type="radio" style="display: inline-block" name="favorite_id" v-model="favorite_id" value="1">건강
-          <input type="radio" style="display: inline-block" name="favorite_id" v-model="favorite_id" value="2">셀프케어
-          <input type="radio" style="display: inline-block" name="favorite_id" v-model="favorite_id" value="3">생활
-          <input type="radio" style="display: inline-block" name="favorite_id" v-model="favorite_id" value="4">자기계발
-        </div>
-        <br>
-
         <v-btn
-          :disabled="!form"
           :loading="loading"
-          color="success"
-          size="large"
-          type="submit"
+          color="teal-lighten-4"
+          
+          class="btn login-btn-font login-btn mb-10"
           variant="elevated"
-          block
+          
+          @click="checkId"
         >
-          Sign In
+          회원가입하기
         </v-btn>
 
         <v-btn
-          
           :loading="loading"
-          color=#FCE4EC
-          size="large"
-          type="reset"
+          color="deep-purple-lighten-4"
+          class="btn login-btn-font login-btn mb-10"
           variant="elevated"
-          block
+          
+          @click="resetForm"
         >
-          Reset
+          다시입력하기
         </v-btn>
       </v-form>
     </v-card>
@@ -243,6 +236,44 @@ import axios from 'axios';
   }
 </script>
   
-<style>
+<style scoped>
 @import '@/views/main.css';
+
+  @font-face {
+    font-family: 'GODOM';
+    src: url('/vuetify-project/public/fonts/GODOM.TTF') format('truetype');
+  }
+  
+  .btn {
+  width: 140px;
+  height: 45px;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  }
+
+  .login-btn {
+  display: inline-block;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  }
+
+  .login-btn-font {
+    font-family: 'GODOM';
+    font-size: 14pt;
+    color: #2c3e50;
+  }
+
+  .btn-custom-font {
+    font-family: 'GODOM';
+    font-size: 16pt;
+    color: #2c3e50;
+  }
+
+  .join-form-text {
+    text-align: left;
+    font-family: 'GODOM';
+    font-size: 13pt;
+    color: #2c3e50;
+  }
 </style>

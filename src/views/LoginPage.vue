@@ -1,7 +1,7 @@
 <template>
   
   <main>
-    <div class="login-container">
+    <div class="login-container bg-grey-lighten-5 pa-12">
       <v-form class="mt-16">
         <v-container fluid>
           <v-row justify="center">
@@ -31,13 +31,13 @@
               >
               <v-text-field
                 v-model="inputPw"
-                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                type="password"
                 label="PW"
                 placeholder="비밀번호를 입력하세요"
-                :type="show1 ? 'text' : 'password'"
+                
                 name="input-10-1"
-                counter
-                @click:append="show1 = !show1"
+                
+                
               >
               </v-text-field>
             </v-col>
@@ -45,9 +45,9 @@
         </v-container>
       </v-form>
     
-      <div class="login-btn">
-        <v-btn variant="elevated" class="btn text-h6" color="teal-lighten-4" @click="goLogin()">LOGIN</v-btn>
-        <v-btn variant="elevated" class="btn text-h6" color="teal-lighten-4" @click="goToJoin()">JOIN</v-btn>
+      <div class="login-btn mb-10">
+        <v-btn variant="elevated" class="btn login-btn-font" color="teal-lighten-4" @click="goLogin()">로그인</v-btn>
+        <v-btn variant="elevated" class="btn login-btn-font" color="deep-purple-lighten-4" @click="goToJoin()">회원가입</v-btn>
       </div>
 
       <a class="autho" id ="kakao-login-btn" @click = "kakaoLogin()">
@@ -156,7 +156,7 @@ export default ({
 })
 </script>
 
-<style>
+<style scoped>
 @import '@/views/main.css';
 
 /* main {
@@ -168,6 +168,7 @@ export default ({
 
 .btn {
   width: 110px;
+  height: 45px;
   margin-left: 10px;
   margin-right: 10px;
   cursor: pointer;
@@ -195,6 +196,23 @@ export default ({
   display: block;
   margin-top: 50px;
   margin-bottom: 30px;
+}
+
+@font-face {
+    font-family: 'GODOM';
+    src: url('/vuetify-project/public/fonts/GODOM.TTF') format('truetype');
+}
+  
+.btn-custom-font {
+    font-family: 'GODOM';
+    font-size: 16pt;
+}
+
+.login-btn-font {
+    font-family: 'GODOM';
+    font-size: 14pt;
+    color: #2c3e50;
+    display: inline-block;
 }
 
 </style>
