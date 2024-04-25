@@ -64,7 +64,7 @@ a:hover {
 }
 
 .unchecked:hover {
-    background-color: #009688;
+    background-color: #80CBC4;
     color: white;
     transform: scale(1.05);
 }
