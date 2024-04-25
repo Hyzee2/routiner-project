@@ -100,11 +100,14 @@
   </div>
 
   <div class="popup_place" v-if="okPopupOpen">
-    <div class="popup_wh">
-      <h4 class="btn-custom-font">
+    <div class="popup_wh btn-custom-font" >
+      <h4>
         루틴이 저장되었어요!
       </h4>
-      <button class="btn-custom-small" id="makeRoutine" @click="gomain">루틴 시작하기</button>
+      <!-- <button id="makeRoutine" @click="gomain">루틴 시작하기</button> -->
+      <v-btn class="ma-2 btn-custom-font" color="darkslateblue" height="50px" margin-top="100px" @click="gomain" rounded="xl">
+        루틴 시작하기
+          </v-btn>
     </div>
   </div>
     
@@ -248,7 +251,7 @@ import axios from 'axios';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #492c50;
     margin-top: 5px;
   }
 
@@ -269,7 +272,7 @@ import axios from 'axios';
 }
 
 .navigation button.selected {
-  background-color: green;
+  background-color: #00a493;
   color: white;
 }
 
@@ -302,7 +305,7 @@ import axios from 'axios';
 }
 
 .button-list button.selected {
-  background-color: green;
+  background-color: #7E57C2; /*눌렀을때 버튼배경색*/ 
   color: white;
   border-color: transparent; /* 선택되었을 때 테두리를 숨깁니다. */
 }
@@ -313,6 +316,7 @@ import axios from 'axios';
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 80%;
+    height: 50%;
     max-width: 500px;
     display: flex;
     justify-content: center;
