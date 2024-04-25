@@ -1,43 +1,99 @@
 <template>
-  <nav class="menu">
-    <router-link to="/UserMain">오늘</router-link>
-    <router-link to="/Calendar">월별</router-link>
-    <router-link to="/Board">게시판</router-link>
-  </nav><br><br>
+  <v-layout class="overflow-visible" style="height: 56px;">
+    <v-app-bar-title
+      v-model="value"
+      color="teal"
+      grow
+      class="mt-5"
+    >
+      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/UserMain">
+        <v-icon>mdi-checkbox-marked-circle-outline</v-icon>&nbsp;
+
+        Main
+      </v-btn>
+
+      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/Calendar">
+        <v-icon>mdi-calendar-check</v-icon>&nbsp;
+
+        Monthly
+      </v-btn>
+
+      <v-btn size="large" variant="text" class="mr-7 ml-7" to="/Board">
+        <v-icon>mdi-bulletin-board</v-icon>&nbsp;
+
+        Board
+      </v-btn>
+      
+    </v-app-bar-title>
+  </v-layout>
   <div>
     <!-- <button v-for="li in categories" :key="li.cate_id" @click="fetchBoardsByCategory(li.cate_id)">
       {{ li.cate_name }}
     </button> -->
-    <button @click="fetchBoardsByCategory(1)">건강</button>
-    <button @click="fetchBoardsByCategory(2)">셀프케어</button>
-    <button @click="fetchBoardsByCategory(3)">생활</button>
-    <button @click="fetchBoardsByCategory(4)">자기계발</button>
+    <button @click="fetchBoardsByCategory(1)" class = "btn-custom-font">건강</button>
+    <button @click="fetchBoardsByCategory(2)" class = "btn-custom-font">셀프케어</button>
+    <button @click="fetchBoardsByCategory(3)" class = "btn-custom-font">생활</button>
+    <button @click="fetchBoardsByCategory(4)" class = "btn-custom-font">자기계발</button>
   </div>
-  <table class="board_table">
+  <div class="image_container">
+  <v-img
+      class="image-item"
+      :src="require('@/assets/5.png')"
+      cover
+      >
+      <div class="overlay"></div>
+    </v-img>
+    <v-img
+      class="image-item"
+      :src="require('@/assets/6.png')"
+      cover
+      >
+      <div class="overlay"></div>
+    </v-img>
+    <v-img
+      class="image-item"
+      :src="require('@/assets/7.png')"
+      cover
+      >
+      <div class="overlay"></div>
+    </v-img>
+    <v-img
+      class="image-item"
+      :src="require('@/assets/8.png')"
+      cover
+      >
+      <div class="overlay"></div>
+    </v-img>
+  </div>
+  <table class="brd_table">
     <thead>
-      <tr>
-        <th>제목</th>
-        <th>ID</th>
-        <th>작성일시</th>
+      <tr class = 'btn-custom-font'>
+        <th class='title'>제목</th>
+        <th class='title'>ID</th>
+        <th class='title'>작성일시</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="li in boards" :key="li.board_num" :class="{ active: selectedCategory === categories }" @click="openModal(li.board_num)">
-        <td>{{ li.title }}</td>
-        <td>{{ li.mem_id }}</td>
-        <td>{{ li.w_date }}</td>
+      <tr v-for="li in boards" :key="li.board_num" @click="openModal(li.board_num)" :class="{ active: selectedCategory === categories }" >
+        <td class='title btn-custom-font'>{{ li.title }}</td>
+        <td class='title btn-custom-font'>{{ li.mem_id }}</td>
+        <td class='title btn-custom-font'>{{ li.w_date }}</td>
       </tr>
     </tbody>
   </table>
   <!-- 글 contents 보여주기 영역 -->
-  <div v-if="modalOpen" class="modal-content">
-    <p>Title: {{ selectedPost.title }}</p>
-    <p>Contents: {{ selectedPost.contents }}</p>
-    <p>Date: {{ selectedPost.w_date }}</p>
-    <button @click="modalOpen = false">Close</button><br>
-  </div><br><br>
+  <div class="modal-background" v-if="modalOpen">
+  <div class="modal-content">
+    <span class="view-top-title btn-custom-font"> {{ selectedPost.title }}&nbsp;&nbsp;&nbsp;&nbsp;{{ selectedPost.mem_id }}</span> 
+    <span class="view-top2 btn-custom-font">{{ selectedPost.w_date }}</span><br><br><br>
+    <span class ="view-mid btn-custom-font"> {{ selectedPost.contents }}</span><br>
+    
+
+    <span class = "view-bottom btn-custom-font"><button @click="modalOpen = false">Close</button></span><br>
+  </div>
+</div><br><br>
   <!-- 글쓰기 영역 -->
-  <button @click="showPostModal = true">글쓰기</button>
+  <div class = "btn-custom-font"><button @click="showPostModal = true">글쓰기</button></div>
   <board-write :show="showPostModal" @close="showPostModal = false" @submitted="handleSubmitted"></board-write>
 </template>
 
@@ -180,6 +236,29 @@ export default {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.image_container {
+  display: flex;
+}
+
+.image-item {
+  flex-grow: 1;
+  /* flex-basis를 0%로 설정하면 모든 이미지 요소가 균등하게 분배됩니다 */
+  flex-basis: 0%;
+  /* 각 이미지의 최소 너비와 높이를 설정합니다. 이 값들은 실제 사용 사례에 맞게 조정해야 합니다. */
+  min-width: 200px; /* 또는 원하는 px 값으로 */
+  margin: 0px; /* 이미지 사이의 간격 */
+}
+
+.btn-custom-font {
+  font-family: 'GODOM';
+  font-size: 16pt;
+}
+
+@font-face {
+  font-family: 'GODOM';
+  src: url('/vuetify-project/public/fonts/GODOM.TTF') format('truetype');
 }
 
 </style>

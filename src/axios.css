@@ -1,28 +1,3 @@
-.popup_bl {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    animation: fadeIn 0.5s;
-  }
-  
-  .popup_wh {
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    height: 300px;
-    max-width: 500px;
-    text-align: center;
-    animation: slideIn 0.5s;
-  }
-  
   .data-id {
     font-size: 18px;
     color: #333;
@@ -40,9 +15,9 @@
   }
   
   button {
-    background-color: #4CAF50;
+    background-color: #ffffff;
     border: none;
-    color: white;
+    color: #2e2e2e;
     padding: 12px 24px;
     text-align: center;
     text-decoration: none;
@@ -51,13 +26,13 @@
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* 버튼에 그림자 효과 추가 */
+    /* box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* 버튼에 그림자 효과 추가 */
     transition: background-color 0.3s, transform 0.2s; /* 배경색과 크기 변화에 애니메이션 효과 */
   }
   
   button:hover {
-    background-color: #367B3A; /* 호버 시 버튼 색 변경 */
-    transform: scale(1.05); /* 버튼을 약간 크게 만듦 */
+    background-color: #75b978; /* 호버 시 버튼 색 변경 */
+    transform: scale(1.05);      /* 버튼을 약간 크게 만듦 */
   }
   
   @keyframes fadeIn {
@@ -76,6 +51,14 @@
     margin: 20px auto; /* 상하 20px, 좌우 자동으로 테이블을 중앙 정렬 */
     border-collapse: collapse; /* 테이블 셀 사이의 간격 없애기 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 테이블에 그림자 효과 추가 */
+    overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+    white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 '...'로 표시 */
+  }
+
+  .brd_table th.title{
+    width: 70%;
+    background-color: #009688;
   }
   
   th, td {
@@ -107,8 +90,30 @@
   }
   
   .modal-content {
+    margin-top: 10px;
     background: white;
-    padding: 10%;
+    padding: 70%;
     border-radius: 10px;
     width: 80%;
   }
+
+  .modal-content span.view-top-title {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: bottom;
+  }
+
+  .modal-content span.view-top2 {
+    display: flex;
+    margin-bottom: 10px;
+}
+.modal-content span.view-mid {
+  text-align: left;
+}
+
+.modal-content span.view-bottom {
+  width: 100%;
+  height: 100px;
+  margin-top: 100px;
+}
