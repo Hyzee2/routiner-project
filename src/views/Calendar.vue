@@ -55,7 +55,7 @@
           <td style="background-color:#D1C4E9;">일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td style="background-color: #B2DFDB;">토</td>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="cal_hover">
         <tr v-for="(row, index) in calendarData" :key="index">
           <td v-for="(day, idx) in row" :key="idx" :style="getCellStyle(day)" @click="openModal(day)">
             {{ day }}
@@ -317,7 +317,7 @@ a { color:#000000;text-decoration:none; }
   font-size: 15pt;
   color: #ffffff;
   background: #9a22c5;
-  margin-top: 180px; /* 버튼 위 여백을 자동으로 설정하여 가장 아래로 이동 */
+  margin-top: 150px; /* 버튼 위 여백을 자동으로 설정하여 가장 아래로 이동 */
   display: block; /* 버튼을 블록 수준 요소로 표시하여 수직으로 중앙 정렬을 용이하게 함 */
   margin-left: auto; /* 버튼을 수평으로 가운데로 이동 */
   margin-right: auto; /* 버튼을 수평으로 가운데로 이동 */
@@ -326,6 +326,10 @@ a { color:#000000;text-decoration:none; }
 .welcome {
   margin-top: 40px;
   margin-bottom: -20px;
+}
+
+.cal_hover:hover {
+  cursor: pointer;
 }
 
 
