@@ -93,13 +93,43 @@
   </div>
 </div><br><br>
   <!-- 글쓰기 영역 -->
-  <div class = "btn-custom-font"><button @click="showPostModal = true">글쓰기</button></div>
+  <div class = "btn-custom-font"><button @click="openedModal">글쓰기</button></div>
   <board-write :show="showPostModal" @close="showPostModal = false" @submitted="handleSubmitted"></board-write>
+
+<!-- 모달창 영역 -->
+<div class="Boardmodal" v-if="modalPopup">
+    <div class="Boardmodal-content">
+      <h2>게시글 작성</h2>
+      <label>제목</label>
+      <input type="text" id="inputTitle" v-model="inputTitle" required>
+      <label>내용</label>
+      <input type="textarea" id="inputcontents" v-model="inputcontents" required>
+      <button @click="insertBoard">등록</button>
+      <button @click="closedModal">취소</button>
+        <!-- 입력 폼 필드 -->
+        <!-- <div>
+            <label for="title">제목</label>
+            <input type="text" id="title" v-model="post.title" required>
+          </div>
+          <div>
+            <label for="content">내용</label>
+            <textarea id="content" v-model="post.content" required></textarea>
+          </div>
+          <div>
+            <label for="tags">태그</label>
+            <input type="text" id="tags" v-model="post.tags" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit">등록</button>
+            <button type="button" @click="closedModal">취소</button>
+          </div> -->
+    </div>
+  </div>
+
 </template>
 
 <script>
 import axios from 'axios';
-import BoardWrite from './BoardWrite.vue';
 export default {
   name: 'App',
   data() {
@@ -113,40 +143,29 @@ export default {
         { cate_id: 2, cate_name: '셀프케어' },
         { cate_id: 3, cate_name: '생활' },
         { cate_id: 4, cate_name: '자기계발' }],
-      modalOpen: false,
-      showPostModal: false
+        modalOpen: false,
+        modalPopup: false,
+      showPostModal: false,
+      inputTitle: '',
+      inputcontents: '',
+      userId: '',
+      cateId: '',
     }
   },
   methods: {
     handleSubmitted() {
       this.showPostModal = false;
     },
+    closedModal() {
+      this.modalPopup = false;
+    },
+    openedModal() {
+      this.modalPopup = true;
+    },
 
-    // fetchBoards() {
-    //   axios.get('http://localhost:3000/boards')
-    //     .then(response => {
-    //       this.boards = response.data;
-    //       console.log('최초 mount되는 데이터는 이것입니다: '+response.data);
-    //     })
-    //     .catch(error => {
-    //       console.error('Error fetching boards:', error);
-    //     });
-    // },
-
-
-    // 선택한 카테고리에서 작성한 글만 나오게 하는 메서드
-    // fetchBoardsByCategory(cate_id) {
-    //   axios.get('http://localhost:3000/boards/' + cate_id)
-    //     .then(response => {
-    //       console.log(response);
-    //       this.detail = response.data.data[0];
-    //       console.log(this.detail);
-    //     })
-    //     .catch(error => {
-    //       console.error('Error fetching board details:', error);
-    //     });
-    // },
     fetchBoardsByCategory(cate_id) {
+      this.cateId = cate_id;
+      console.log("카테고리 아이디가 오나 안오나", cate_id);
       axios.get('http://localhost:3000/boards/category/' + cate_id)
         .then(response => {
           this.boards = response.data.data; // 기존 상태 업데이트 로직
@@ -177,13 +196,37 @@ export default {
         .catch(error => {
           console.error('Error fetching board details:', error);
         });
-    }
+    },
+    insertBoard() {
+      let obj = {};
+      obj.id = this.userId;
+      obj.cate = this.cateId;
+      obj.title = this.inputTitle;
+      obj.contents = this.inputcontents;
+      console.log("게시판에서 넘긴 오브젝트", obj);
+
+      axios.post("http://localhost:3000/insert_boards", obj)
+        .then(response => {
+          console.log(response.data);
+          this.closedModal();
+        })
+        .catch(error => {
+          console.error("에러 발생:", error);
+        });
+    },
+    getUserId() {
+        let id = this.$store.getters.getUserList.id;
+        console.log("게시판의 userId는?? ", id);
+        this.userId = id;
+
+    },
+
   },
   mounted() {
     this.fetchBoardsByCategory(1);
+    this.getUserId();
   },
   components: {
-    BoardWrite
   }
 }
 </script>
@@ -260,5 +303,44 @@ export default {
   font-family: 'GODOM';
   src: url('/vuetify-project/public/fonts/GODOM.TTF') format('truetype');
 }
+
+.Boardmodal {
+  display: none; /* 모달 숨김 */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Boardmodal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid #888;
+  width: 30%; /* 모달 너비 조정 */
+  height: 50%; /* 모달 높이 조정 */
+  overflow-y: auto; /* 세로 스크롤 추가 */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center;  */
+}
+
+.Boardmodal-title1 {
+  font-size: 24px; /* 제목의 글꼴 크기 설정 */
+  font-weight: bold; /* 제목의 글꼴 두껍게 설정 */
+  margin-bottom: 10px; /* 제목 아래 여백 추가 */
+  border-bottom: 3px solid #949292; /* 밑줄 추가 */
+  padding-bottom: 5px; /* 밑줄과 제목 사이 간격 추가 */
+  margin-bottom: 50px; /* 밑줄 아래 여백 추가 */
+}
+
 
 </style>
