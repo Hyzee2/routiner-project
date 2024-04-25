@@ -362,4 +362,14 @@ import axios from 'axios';
   font-family: 'GODOM';
   font-size: 16pt;
 }
+
+  .btn-custom-title {
+    font-family: 'GODOM';
+    font-size: 25pt;
+  }
+
+  .btn-custom-small {
+    font-family: 'GODOM';
+    font-size: 14pt;
+  }
 </style>

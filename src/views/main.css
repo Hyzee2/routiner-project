@@ -75,3 +75,18 @@ a:hover {
     bottom: 10px;
     left: 10px;
 }
+
+.logo {
+    width: 300px;
+    margin-top: 25px;
+}
+
+@font-face {
+    font-family: 'GODOM';
+    src: url('/vuetify-project/public/fonts/GODOM.TTF') format('truetype');
+  }
+  
+  .btn-custom-font {
+    font-family: 'GODOM';
+    font-size: 16pt;
+  }
