@@ -6,19 +6,19 @@
       grow
       class="mt-5"
     >
-      <v-btn size="large" variant="tonal" color="teal" class="mr-7 ml-7" to="/UserMain">
+      <v-btn size="large" variant="tonal" color="grey-darken-1" class="mr-7 ml-7" to="/UserMain">
         <v-icon>mdi-checkbox-marked-circle-outline</v-icon>&nbsp;
 
         Main
       </v-btn>
 
-      <v-btn size="large" variant="tonal" color="teal" class="mr-7 ml-7" to="/Calendar">
+      <v-btn size="large" variant="tonal" color="grey-darken-1" class="mr-7 ml-7" to="/Calendar">
         <v-icon>mdi-calendar-check</v-icon>&nbsp;
 
         Monthly
       </v-btn>
 
-      <v-btn size="large" variant="tonal" color="teal" class="mr-7 ml-7" to="/Board">
+      <v-btn size="large" variant="tonal" color="grey-darken-1" class="mr-7 ml-7" to="/Board">
         <v-icon>mdi-bulletin-board</v-icon>&nbsp;
 
         Board
@@ -50,7 +50,7 @@
         앗! 루틴이 없어요!<br> 
         루티너와 같이 새로운 루틴 만들러가요
       </h4>
-      <button class="btn-custom-small" id="makeRoutine" @click="goRoutine">루틴만들기</button>
+      <button class="btn-custom-small" id="makeRoutine" @click="goRoutine">루틴 만들기</button>
     </div>
   </div>
 
@@ -61,7 +61,7 @@
 
           <div v-for="li in routines" :key="li.r_name"  @click="checkRoutine(li)">
             <v-col cols="12" md="12" sm="12">
-              <v-btn :class="{'checked' : li.checkYn}" rounded="lg" size="x-large" block>{{ li.r_name }}</v-btn>
+              <v-btn :class="[{'checked' : li.checkYn}, 'unchecked']" rounded="lg" size="x-large" block>{{ li.r_name }}</v-btn>
             </v-col>
           </div>
 
@@ -185,7 +185,7 @@
   }
 </script>
   
-<style>
+<style scoped>
   @import '@/views/main.css';
 
 .welcome {
@@ -211,5 +211,10 @@
   .btn-custom-small {
     font-family: 'GODOM';
     font-size: 14pt;
+  }
+
+  .total-list {
+    margin-bottom: 300px;
+    margin-top: 20px;
   }
 </style>
