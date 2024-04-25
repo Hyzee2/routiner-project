@@ -2,7 +2,6 @@
   <v-layout class="overflow-visible" style="height: 56px;">
     <v-app-bar-title
       v-model="value"
-      color="teal"
       grow
       class="mt-5"
     >
@@ -26,21 +25,23 @@
       
     </v-app-bar-title>
   </v-layout>
+
   <div>
     <!-- <button v-for="li in categories" :key="li.cate_id" @click="fetchBoardsByCategory(li.cate_id)">
       {{ li.cate_name }}
     </button> -->
-    <button @click="fetchBoardsByCategory(1)" class = "btn-custom-font">건강</button>
-    <button @click="fetchBoardsByCategory(2)" class = "btn-custom-font">셀프케어</button>
-    <button @click="fetchBoardsByCategory(3)" class = "btn-custom-font">생활</button>
-    <button @click="fetchBoardsByCategory(4)" class = "btn-custom-font">자기계발</button>
+    <v-btn @click="fetchBoardsByCategory(1)" class = "mt-5 mr-2 ml-2 mb-3 btn-custom-font cate-btn" :class="{ active: isActive1 }">건강</v-btn>
+    <v-btn @click="fetchBoardsByCategory(2)" class = "mt-5 mr-2 ml-2 mb-3 btn-custom-font cate-btn" :class="{ active: isActive2 }">셀프케어</v-btn>
+    <v-btn @click="fetchBoardsByCategory(3)" class = "mt-5 mr-2 ml-2 mb-3 btn-custom-font cate-btn" :class="{ active: isActive3 }">생활</v-btn>
+    <v-btn @click="fetchBoardsByCategory(4)" class = "mt-5 mr-2 ml-2 mb-3 btn-custom-font cate-btn" :class="{ active: isActive4 }">자기계발</v-btn>
   </div>
+
   <div class="image_container">
-  <v-img
-      class="image-item"
-      :src="require('@/assets/5.png')"
-      cover
-      >
+    <v-img
+        class="image-item"
+        :src="require('@/assets/5.png')"
+        cover
+        >
       <div class="overlay"></div>
     </v-img>
     <v-img
@@ -65,64 +66,92 @@
       <div class="overlay"></div>
     </v-img>
   </div>
+
   <table class="brd_table">
     <thead>
-      <tr class = 'btn-custom-font'>
-        <th class='title'>제목</th>
-        <th class='title'>ID</th>
-        <th class='title'>작성일시</th>
+      <tr class = 'title-custom-font'>
+        <td class='title'>글제목</td>
+        <td class='title'>글쓴이</td>
+        <td class='title'>등록일</td>
       </tr>
     </thead>
     <tbody>
       <tr v-for="li in boards" :key="li.board_num" @click="openModal(li.board_num)" :class="{ active: selectedCategory === categories }" >
-        <td class='title btn-custom-font'>{{ li.title }}</td>
-        <td class='title btn-custom-font'>{{ li.mem_id }}</td>
-        <td class='title btn-custom-font'>{{ li.w_date }}</td>
+        <td class='btn-custom-font board-content'>{{ li.title }}</td>
+        <td class='btn-custom-font board-content'>{{ li.mem_id }}</td>
+        <td class='btn-custom-font board-content'>{{ li.w_date }}</td>
       </tr>
     </tbody>
   </table>
+  
   <!-- 글 contents 보여주기 영역 -->
-  <div class="modal-background" v-if="modalOpen">
-  <div class="modal-content">
-    <span class="view-top-title btn-custom-font"> {{ selectedPost.title }}&nbsp;&nbsp;&nbsp;&nbsp;{{ selectedPost.mem_id }}</span> 
-    <span class="view-top2 btn-custom-font">{{ selectedPost.w_date }}</span><br><br><br>
-    <span class ="view-mid btn-custom-font"> {{ selectedPost.contents }}</span><br>
-    
+  <!-- <div class="modal-background" v-if="modalOpen">
+    <div class="modal-content">
+      <span class="view-top-title btn-custom-font"> {{ selectedPost.title }}&nbsp;&nbsp;&nbsp;&nbsp;{{ selectedPost.mem_id }}</span> 
+      <span class="view-top2 btn-custom-font">{{ selectedPost.w_date }}</span><br><br><br>
+      <span class ="view-mid btn-custom-font"> {{ selectedPost.contents }}</span><br>
+      <span class = "view-bottom btn-custom-font"><button @click="modalOpen = false">Close</button></span><br>
+    </div>
+  </div><br><br> -->
 
-    <span class = "view-bottom btn-custom-font"><button @click="modalOpen = false">Close</button></span><br>
-  </div>
-</div><br><br>
+  <v-dialog v-model="modalOpen" max-width="800">
+      <v-card>
+        <v-card-title class="detail-modal">
+          <div class="view-top-title content-title-font"> {{ selectedPost.title }}<br><br></div>
+          <div class="detail-content">
+            <div class="content-writer-font">{{ selectedPost.mem_id }}</div> 
+            <div class="view-top2 content-update-font">{{ selectedPost.w_date }}</div>
+          </div>
+            <!-- <span class = "view-bottom btn-custom-font"><button @click="modalOpen = false">Close</button></span><br> -->
+        </v-card-title>
+
+        <v-card-text>
+          <div class="detail-content">
+            <div class ="content-detail-font"> {{ selectedPost.contents }}</div>
+          </div>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="btn-custom-font modal-button"
+            rounded="xl"
+            @click="modalOpen = false"
+          >닫기</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   <!-- 글쓰기 영역 -->
-  <div class = "btn-custom-font"><button @click="openedModal">글쓰기</button></div>
+  <div>
+    <v-btn @click="openedModal" class="btn-custom-font modal-button mb-16">글쓰기</v-btn>
+  </div>
+
   <board-write :show="showPostModal" @close="showPostModal = false" @submitted="handleSubmitted"></board-write>
 
-<!-- 모달창 영역 -->
-<div class="Boardmodal" v-if="modalPopup">
+  <!-- 글쓰기 모달창 영역 -->
+  <div class="Boardmodal" v-if="modalPopup">
     <div class="Boardmodal-content">
-      <h2>게시글 작성</h2>
-      <label>제목</label>
-      <input type="text" id="inputTitle" v-model="inputTitle" required>
-      <label>내용</label>
-      <input type="textarea" id="inputcontents" v-model="inputcontents" required>
-      <button @click="insertBoard">등록</button>
-      <button @click="closedModal">취소</button>
-        <!-- 입력 폼 필드 -->
-        <!-- <div>
-            <label for="title">제목</label>
-            <input type="text" id="title" v-model="post.title" required>
-          </div>
-          <div>
-            <label for="content">내용</label>
-            <textarea id="content" v-model="post.content" required></textarea>
-          </div>
-          <div>
-            <label for="tags">태그</label>
-            <input type="text" id="tags" v-model="post.tags" required>
-          </div>
-          <div class="form-actions">
-            <button type="submit">등록</button>
-            <button type="button" @click="closedModal">취소</button>
-          </div> -->
+      <h2 class="Boardmodal-title">게시글 작성</h2>
+
+      <div class="edit">
+        <div class="edit-title">
+          <label class="content-writer-font">제목</label>
+          <input type="text" class="inputTitle" v-model="inputTitle" required>
+        </div>
+      </div>
+
+      <div class="edit">
+        <div>
+          <label class="content-writer-font edit-content">내용</label>
+          <input type="textarea" class="inputcontents" v-model="inputcontents" required>
+        </div>
+      </div>
+
+      <div class="edit-buttons">
+        <v-btn @click="insertBoard" class="btn-custom-font modal-button mr-4">등록</v-btn>
+        <v-btn @click="closedModal" class="btn-custom-font modal-button ml-4">취소</v-btn>
+      </div>
     </div>
   </div>
 
@@ -143,13 +172,17 @@ export default {
         { cate_id: 2, cate_name: '셀프케어' },
         { cate_id: 3, cate_name: '생활' },
         { cate_id: 4, cate_name: '자기계발' }],
-        modalOpen: false,
-        modalPopup: false,
+      modalOpen: false,
+      modalPopup: false,
       showPostModal: false,
       inputTitle: '',
       inputcontents: '',
       userId: '',
       cateId: '',
+      isActive1: false,
+      isActive2: false,
+      isActive3: false,
+      isActive4: false
     }
   },
   methods: {
@@ -166,10 +199,37 @@ export default {
     fetchBoardsByCategory(cate_id) {
       this.cateId = cate_id;
       console.log("카테고리 아이디가 오나 안오나", cate_id);
+      switch(cate_id){
+        case 1:
+          this.isActive1 = true;
+          this.isActive2 = false;
+          this.isActive3 = false;
+          this.isActive4 = false;
+          break;
+        case 2:
+          this.isActive1 = false;
+          this.isActive2 = true;
+          this.isActive3 = false;
+          this.isActive4 = false;
+          break;
+        case 3:
+          this.isActive1 = false;
+          this.isActive2 = false;
+          this.isActive3 = true;
+          this.isActive4 = false;
+          break;
+        case 4:
+          this.isActive1 = false;
+          this.isActive2 = false;
+          this.isActive3 = false;
+          this.isActive4 = true;
+          break;
+      }
       axios.get('http://localhost:3000/boards/category/' + cate_id)
         .then(response => {
           this.boards = response.data.data; // 기존 상태 업데이트 로직
-          console.log('자~ server 에서 data 왔는지 보자: ',response.data.data)
+          console.log('자~ server 에서 data 왔는지 보자: ',response.data.data);
+        
         })
         .catch(error => {
           console.error('Error fetching boards:', error);
@@ -232,7 +292,7 @@ export default {
 </script>
 
 <style scoped>
-@import '@/axios.css';
+@import '@/views/main.css';
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -245,11 +305,11 @@ export default {
 
 .active {
   /* 활성화 버튼 스타일 */
-  background-color: #42b983;
-  color: rgb(63, 114, 83);
+  background-color: #00a493;
+  color: white;
 }
 
-.modal {
+/* .modal {
   display: block;
   position: fixed;
   z-index: 1;
@@ -259,8 +319,8 @@ export default {
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.4);
-}
-.modal-content {
+} */
+.modal-content { /*글 상세 내용 모달*/ 
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
@@ -283,6 +343,8 @@ export default {
 
 .image_container {
   display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .image-item {
@@ -327,20 +389,163 @@ export default {
   width: 30%; /* 모달 너비 조정 */
   height: 50%; /* 모달 높이 조정 */
   overflow-y: auto; /* 세로 스크롤 추가 */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center;  */
+  justify-content: center; 
+  align-items: center;  */
 }
 
-.Boardmodal-title1 {
-  font-size: 24px; /* 제목의 글꼴 크기 설정 */
-  font-weight: bold; /* 제목의 글꼴 두껍게 설정 */
-  margin-bottom: 10px; /* 제목 아래 여백 추가 */
-  border-bottom: 3px solid #949292; /* 밑줄 추가 */
-  padding-bottom: 5px; /* 밑줄과 제목 사이 간격 추가 */
-  margin-bottom: 50px; /* 밑줄 아래 여백 추가 */
+.edit-buttons {
+  margin-top: 40px;
 }
 
+.edit {
+  display: flex;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
 
+.inputTitle {
+  border-bottom: 1px solid #888;
+  display: inline-block;
+  margin-left: 20px;
+  width: 200px;
+  height: 30px;
+  overflow: hidden;
+}
+
+.inputcontents {
+  border: 1px solid #888;
+  display: inline-block;
+  margin-left: 20px;
+  width: 400px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.Boardmodal-title {
+  font-family: 'GODOM';
+  font-size: 25pt;
+  margin-bottom: 10px;  /*제목 아래 여백 추가 */
+  border-bottom: 3px solid #949292;  /*밑줄 추가 */
+  padding-bottom: 5px;  /*밑줄과 제목 사이 간격 추가 */
+  margin-bottom: 50px;  /*밑줄 아래 여백 추가 */
+}
+
+.cate-btn {
+  padding: 5px 20px;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.brd_table {
+    width: 80%; /* 테이블의 폭 설정 */
+    margin: 20px auto; /* 상하 20px, 좌우 자동으로 테이블을 중앙 정렬 */
+    border-collapse: collapse; /* 테이블 셀 사이의 간격 없애기 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 테이블에 그림자 효과 추가 */
+    overflow: scroll;
+    white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 '...'로 표시 */
+}
+
+.brd_table td.title, td.writer, td.update{
+    width: 70%;
+    background-color: #00a493;
+    color: white;
+}
+
+.brd_table tr:hover {
+    background-color: #f5f5f5; /* 행에 마우스를 올리면 배경색 변경 */
+    cursor: pointer;
+  }
+
+.title-custom-font {
+  font-family: 'GODOM';
+  font-size: 20pt;
+}
+
+.content-title-font {
+  font-family: 'GODOM';
+  font-size: 25pt;
+  border-bottom: 1px solid #2c3e50;
+}
+
+.content-writer-font {
+  font-family: 'GODOM';
+  font-size: 15pt;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.content-detail-font {
+  font-family: 'GODOM';
+  font-size: 15pt;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: 50px;
+}
+
+.content-update-font {
+  font-family: 'GODOM';
+  font-size: 10pt;
+  display: inline-block;
+  width: min-content;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.detail-modal {
+  padding: 50px;
+}
+
+.detail-content {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+tr.title, td.board-content {
+    padding: 12px 15px; /* 셀 내부의 여백 */
+    border-bottom: 1px solid #ddd; /* 셀 하단에 선 추가 */
+    text-align: center; /* 텍스트를 중앙 정렬 */
+}
+
+.modal-background {
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
+    display: flex; /* flexbox로 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.popup_wh {
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: slideIn 0.5s;
+}
+
+.modal-button {
+  height: 50px;
+  font-size: 15pt;
+  color: #ffffff;
+  background: #9a22c5;
+  width: 100px;
+}
 </style>
