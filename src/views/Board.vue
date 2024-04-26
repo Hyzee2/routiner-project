@@ -280,6 +280,8 @@ export default {
           console.log(response.data);
           this.closedModal();
           this.fetchBoardsByCategory(this.cateId);
+          this.inputTitle = '';
+          this.inputcontents = '';
         })
         .catch(error => {
           console.error("에러 발생:", error);
