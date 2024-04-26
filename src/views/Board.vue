@@ -83,18 +83,9 @@
       </tr>
     </tbody>
   </table>
-  
-  <!-- 글 contents 보여주기 영역 -->
-  <!-- <div class="modal-background" v-if="modalOpen">
-    <div class="modal-content">
-      <span class="view-top-title btn-custom-font"> {{ selectedPost.title }}&nbsp;&nbsp;&nbsp;&nbsp;{{ selectedPost.mem_id }}</span> 
-      <span class="view-top2 btn-custom-font">{{ selectedPost.w_date }}</span><br><br><br>
-      <span class ="view-mid btn-custom-font"> {{ selectedPost.contents }}</span><br>
-      <span class = "view-bottom btn-custom-font"><button @click="modalOpen = false">Close</button></span><br>
-    </div>
-  </div><br><br> -->
 
   <v-dialog v-model="modalOpen" max-width="800">
+    
       <v-card>
         <v-card-title class="detail-modal">
           <div class="view-top-title content-title-font"> {{ selectedPost.title }}<br><br></div>
@@ -110,6 +101,18 @@
             <div class ="content-detail-font"> {{ selectedPost.contents }}</div>
           </div>
         </v-card-text>
+
+        <!-- 여기 삭제버튼 -->
+        <!-- <v-btn @click="boardId">온클릭</v-btn> -->
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn v-if="this.boardid === 'Y'"
+            class="btn-custom-font modal-button"
+            rounded="xl"
+            @click="deleteContents"
+          >삭제하기</v-btn>
+        </v-card-actions>
+    
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -182,7 +185,10 @@ export default {
       isActive1: false,
       isActive2: false,
       isActive3: false,
-      isActive4: false
+      isActive4: false,
+      boardNum: '',
+      boardid: '',
+      boardYn: false,
     }
   },
   methods: {
@@ -238,9 +244,13 @@ export default {
     // 게시판에서 글 선택하면 모달로 글 내용 보여주는 메서드
     openModal(board_num) {
       this.modalOpen = true;
+      
       axios.get(`http://localhost:3000/boards/num/${board_num}`)
         .then(response => {
           this.selectedPost = response.data.data[0];  // 데이터 배열에서 게시글 정보 추출
+          this.boardNum = this.selectedPost.board_num;
+          console.log("boardnumber는??", this.boardNum);
+          this.boardId(this.boardNum);
         })
         .catch(error => {
           console.error('게시글 상세 정보 가져오기 오류:', error);
@@ -275,6 +285,47 @@ export default {
           console.error("에러 발생:", error);
         });
     },
+
+    deleteContents() {
+      let obj = {};
+      obj.id = this.userId;
+      obj.boardNum = this.boardNum;
+
+      axios.post("http://localhost:3000/delete_boards", obj)
+      .then(response => {
+        console.log(response.data);
+        alert("글이 삭제되었습니다!");
+        this.modalOpen = false;
+        this.fetchBoardsByCategory(this.cateId);
+      })
+      .catch(error => {
+          console.error("에러 발생:", error);
+        });
+    },
+
+    boardId(num) {
+      let obj = {};
+      obj.id = this.userId;
+      obj.boardNum = num;
+
+      axios.get("http://localhost:3000/board_id", {
+        params: obj
+      })
+      .then(response => {
+          this.boardid = response.data.yn;
+          // console.log("얍얍", response.data);
+          // console.log("boardid", this.boardid);
+          // if(this.boardid=='Y') {
+          //   this.boardYn = true;
+          // }
+        })
+        .catch(error => {
+          console.error('Error fetching board details:', error);
+        });
+
+    },
+
+
     getUserId() {
         let id = this.$store.getters.getUserList.id;
         console.log("게시판의 userId는?? ", id);
