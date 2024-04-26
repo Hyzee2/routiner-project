@@ -122,6 +122,8 @@
           console.log(res.data.data[0]);
           
           this.routines = res.data.data; 
+          this.id = res.data.data[0].mem_id;
+
           for(let i=0; i<this.routines.length; i++){
             if(this.routines[i].checkYn !== 1){
               this.isChecked=false;

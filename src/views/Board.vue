@@ -137,14 +137,14 @@
       <div class="edit">
         <div class="edit-title">
           <label class="content-writer-font">제목</label>
-          <input type="text" class="inputTitle" v-model="inputTitle" required>
+          <input type="text" placeholder="제목을 입력하세요" class="inputTitle" v-model="inputTitle" required>
         </div>
       </div>
 
       <div class="edit">
         <div>
           <label class="content-writer-font edit-content">내용</label>
-          <input type="textarea" class="inputcontents" v-model="inputcontents" required>
+          <input type="textarea" placeholder="내용을 입력하세요" class="inputcontents" v-model="inputcontents" required>
         </div>
       </div>
 
@@ -269,6 +269,7 @@ export default {
         .then(response => {
           console.log(response.data);
           this.closedModal();
+          this.fetchBoardsByCategory(this.cateId);
         })
         .catch(error => {
           console.error("에러 발생:", error);
@@ -379,6 +380,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: slideIn 0.5s;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .Boardmodal-content {
@@ -389,10 +396,6 @@ export default {
   width: 30%; /* 모달 너비 조정 */
   height: 50%; /* 모달 높이 조정 */
   overflow-y: auto; /* 세로 스크롤 추가 */
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; 
-  align-items: center;  */
 }
 
 .edit-buttons {
@@ -453,8 +456,8 @@ export default {
 
 .brd_table td.title, td.writer, td.update{
     width: 70%;
-    background-color: #00a493;
-    color: white;
+    background-color: #80cbc4;
+    color: #eeeeee;
 }
 
 .brd_table tr:hover {
@@ -464,7 +467,7 @@ export default {
 
 .title-custom-font {
   font-family: 'GODOM';
-  font-size: 20pt;
+  font-size: 18pt;
 }
 
 .content-title-font {
@@ -545,7 +548,7 @@ tr.title, td.board-content {
   height: 50px;
   font-size: 15pt;
   color: #ffffff;
-  background: #9a22c5;
+  background: #7e57c2;
   width: 100px;
 }
 </style>
